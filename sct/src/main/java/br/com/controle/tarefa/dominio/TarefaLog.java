@@ -4,10 +4,10 @@ public class TarefaLog {
 	
 	private Integer id;
 	private Tarefa tarefa;
-	private String novaPorcentagem;
-	private String antigaPorcentagem;
+	private Integer novaPorcentagem;
+	private Integer antigaPorcentagem;
 	private Usuario usuarioAbertura;
-	private Usuario usuariofechamento;
+	private Usuario usuarioFechamento;
 	
 	public Integer getId() {
 		return id;
@@ -21,29 +21,31 @@ public class TarefaLog {
 	public void setTarefa(Tarefa tarefa) {
 		this.tarefa = tarefa;
 	}
-	public String getNovaPorcentagem() {
-		return novaPorcentagem;
-	}
-	public void setNovaPorcentagem(String novaPorcentagem) {
-		this.novaPorcentagem = novaPorcentagem;
-	}
-	public String getAntigaPorcentagem() {
-		return antigaPorcentagem;
-	}
-	public void setAntigaPorcentagem(String antigaPorcentagem) {
-		this.antigaPorcentagem = antigaPorcentagem;
-	}
+
 	public Usuario getUsuarioAbertura() {
 		return usuarioAbertura;
 	}
 	public void setUsuarioAbertura(Usuario usuarioAbertura) {
 		this.usuarioAbertura = usuarioAbertura;
 	}
-	public Usuario getUsuariofechamento() {
-		return usuariofechamento;
+	
+	public Usuario getUsuarioFechamento() {
+		return usuarioFechamento;
 	}
-	public void setUsuariofechamento(Usuario usuariofechamento) {
-		this.usuariofechamento = usuariofechamento;
+	public void setUsuarioFechamento(Usuario usuarioFechamento) {
+		this.usuarioFechamento = usuarioFechamento;
+	}
+	public Integer getNovaPorcentagem() {
+		return novaPorcentagem;
+	}
+	public void setNovaPorcentagem(Integer novaPorcentagem) {
+		this.novaPorcentagem = novaPorcentagem;
+	}
+	public Integer getAntigaPorcentagem() {
+		return antigaPorcentagem;
+	}
+	public void setAntigaPorcentagem(Integer antigaPorcentagem) {
+		this.antigaPorcentagem = antigaPorcentagem;
 	}
 	
 
