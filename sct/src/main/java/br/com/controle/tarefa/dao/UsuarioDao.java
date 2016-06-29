@@ -61,16 +61,16 @@ public class UsuarioDao {
 	}
 
 	public Usuario findById(int id) throws Exception {
-		Usuario tarefa = new Usuario();
+		Usuario usuario = new Usuario();
 		PreparedStatement pst = Conexao.getConexao().prepareStatement("SELECT * FROM sct.usuario WHERE id_usuario = ?");
 		pst.setInt(1, id);
 		ResultSet rs = pst.executeQuery();
 		if (rs.next()) {
-			tarefa = populaUsuario(rs);
+			usuario = populaUsuario(rs);
 		}
 		rs.close();
 		pst.close();
-		return tarefa;
+		return usuario;
 	}
 
 	public void remover(Usuario usuario) throws Exception {
