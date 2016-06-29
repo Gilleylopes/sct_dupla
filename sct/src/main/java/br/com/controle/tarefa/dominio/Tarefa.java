@@ -14,6 +14,34 @@ public class Tarefa {
 	private Usuario usuarioAbertura;
 	private Usuario usuarioFechamento;
 	
+	/**
+	 * Contrutor padrão
+	 */
+	public Tarefa(){
+		
+	}
+	
+	/**
+	 * Contrutor novo objeto
+	 * @param descricao
+	 * @param dataAbertura
+	 * @param dataFechamento
+	 * @param porcentagem
+	 * @param projeto
+	 * @param usuarioAbertura
+	 * @param usuarioFechamento
+	 */
+	public Tarefa (String descricao, Date dataAbertura, Date dataFechamento,
+			Integer porcentagem, Projeto projeto, Usuario usuarioAbertura, Usuario usuarioFechamento){
+		this.descricao = descricao;
+		this.dataAbertura = dataAbertura;
+		this.dataFechamento = dataFechamento;
+		this.porcentagem = porcentagem;
+		this.projeto = projeto;
+		this.usuarioAbertura = usuarioAbertura;
+		this.usuarioFechamento = usuarioFechamento;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

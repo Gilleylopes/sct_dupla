@@ -7,6 +7,25 @@ public class Usuario {
 	private String email;
 	private String senha;
 	
+	/**
+	 * Contrutor padrão
+	 */
+	public Usuario(){
+		
+	}
+	
+	/**
+	 * Contrutor novo objeto
+	 * @param nome
+	 * @param email
+	 * @param senha
+	 */
+	public Usuario(String nome, String email, String senha){
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

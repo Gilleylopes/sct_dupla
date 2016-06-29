@@ -9,6 +9,25 @@ public class Projeto {
 	private Date dataInicio;
 	private Date dataFim;
 	
+	/**
+	 * Contrutor padrão
+	 */
+	public Projeto(){
+		
+	}
+	
+	/**
+	 * Contrutor novo objeto
+	 * @param descricao
+	 * @param dataInicio
+	 * @param dataFim
+	 */
+	public Projeto (String descricao, Date dataInicio, Date dataFim){
+		this.descricao = descricao;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
