@@ -56,7 +56,7 @@ public class TarefaLogDao {
 
 	public void alterar(TarefaLog tarefaLog) throws Exception {
 		PreparedStatement pst = Conexao.getConexao().prepareStatement(
-				"UPDATE sct.tarefa_log SET " + "nova_porcentagem = ?, antiga_porcentagem = ?, id_usuario_abertura = ?, id_usuario_fechamento = ?, " +
+				"UPDATE sct.tarefa_log SET " + "nova_porcentagem = ?, antiga_porcentagem = ?, id_usuario_abertura = ?, id_usuario_fechamento = ? " +
 				" WHERE id_tarefa_log = ?");
 		pst.setInt(1, tarefaLog.getNovaPorcentagem());
 		pst.setInt(2, tarefaLog.getAntigaPorcentagem());
@@ -115,5 +115,19 @@ public class TarefaLogDao {
 		tarefaLog.setUsuarioFechamento(usuarioDao.findById( rs.getInt("id_usuario_fechamento") ));
 		return tarefaLog;
 
+	}
+	
+	public void AtualizarPorcentagem (TarefaLog tarefaLog) throws SQLException{
+		Connection connection = Conexao.getConexao();
+		try{	
+			PreparedStatement pst = connection.prepareStatement("UPDATE sct.tarefa_log SET " + " nova_porcentagem = ? WHERE id_tarefa_log = ?");
+			pst.setInt(1, tarefaLog.getNovaPorcentagem());
+			pst.setInt(2, tarefaLog.getId());
+			pst.executeUpdate();
+            connection.commit();;
+            connection.close();
+        } catch (Exception e) {
+            connection.rollback();
+        }
 	}
 }
