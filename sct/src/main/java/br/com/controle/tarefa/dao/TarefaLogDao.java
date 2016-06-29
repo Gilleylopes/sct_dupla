@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import br.com.controle.tarefa.dominio.Tarefa;
 import br.com.controle.tarefa.dominio.TarefaLog;
 import br.com.controle.tarefa.util.BancoUtil;
 import br.com.controle.tarefa.util.Conexao;
@@ -53,6 +52,10 @@ public class TarefaLogDao {
 		pst.executeUpdate();
 		
 		atualizarPorcentagem(tarefaLog, connection);
+		atualizarUsuario(tarefaLog, connection);
+		
+		if(tarefaLog.getNovaPorcentagem() == 100)
+			fecharTarefa(tarefaLog, connection);
 		
 		connection.commit();
 		pst.close();
@@ -124,18 +127,28 @@ public class TarefaLogDao {
 	
 	public void atualizarPorcentagem (TarefaLog tarefaLog, Connection connection) throws SQLException{		
 		PreparedStatement pst = Conexao.getConexao().prepareStatement(
-				"UPDATE sct.tarefa_log SET " + " nova_porcentagem = ? WHERE id_tarefa_log = ?");
+				"UPDATE sct.tarefa SET " + " porcentagem = ? WHERE id_tarefa = ?");
 		pst.setInt(1, tarefaLog.getNovaPorcentagem());
-		pst.setInt(2, tarefaLog.getId());
+		pst.setInt(2, tarefaLog.getTarefa().getId());
 		pst.executeUpdate();
 		pst.close();
 	}
 	
 	public void atualizarUsuario (TarefaLog tarefaLog, Connection connection) throws SQLException{	
 		PreparedStatement pst = Conexao.getConexao().prepareStatement(
-				"UPDATE sct.tarefa_log SET " + " id_usuario_responsavel = ? WHERE id_tarefa_log = ?");
+				"UPDATE sct.tarefa SET " + " id_usuario_abertura = ? WHERE id_tarefa = ?");
 		pst.setInt(1, tarefaLog.getUsuarioResponsavel().getId());
-		pst.setInt(2, tarefaLog.getId());
+		pst.setInt(2, tarefaLog.getTarefa().getId());
+		pst.executeUpdate();
+		pst.close();
+	}
+	
+	public void fecharTarefa (TarefaLog tarefaLog, Connection connection) throws SQLException{	
+		PreparedStatement pst = Conexao.getConexao().prepareStatement(
+				"UPDATE sct.tarefa SET " + " data_fechamento = ? , id_usuario_fechamento = ? WHERE id_tarefa = ?");
+		pst.setDate(1, new Date(new java.util.Date().getTime()));
+		pst.setInt(2, tarefaLog.getUsuarioResponsavel().getId());
+		pst.setInt(3, tarefaLog.getTarefa().getId());
 		pst.executeUpdate();
 		pst.close();
 	}

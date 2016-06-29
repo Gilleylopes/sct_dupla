@@ -32,13 +32,20 @@ public class Main {
 //		TODO LANÇAR LOG TAREFA
 		Tarefa tarefa1 = tarefaDao.findById(1);
 		
-		tarefaLogDao.inserir(new TarefaLog(tarefa1, 30, 0, usuarioDao.findById(2)));
-		tarefaLogDao.inserir(new TarefaLog(tarefa1, 30, 100, usuarioDao.findById(2)));
-		
+		tarefaLogDao.inserir(new TarefaLog(tarefa1, 30, tarefa1.getPorcentagem(), usuarioDao.findById(2)));
+		tarefa1 = tarefaDao.findById(1);
+		tarefaLogDao.inserir(new TarefaLog(tarefa1, 100, tarefa1.getPorcentagem(), usuarioDao.findById(2)));
+		tarefa1 = tarefaDao.findById(1);
 		System.out.println("Tarefa: "+ tarefa1.getDescricao() + " - " + tarefa1.getPorcentagem() + "% - "+ tarefa1.getDataFechamento());
 		
 //		TODO LANÇAR LOG TAREFA
 		Tarefa tarefa2 = tarefaDao.findById(2);
+		
+		tarefaLogDao.inserir(new TarefaLog(tarefa2, 30, tarefa2.getPorcentagem(), usuarioDao.findById(1)));
+		tarefa2 = tarefaDao.findById(2);
+		tarefaLogDao.inserir(new TarefaLog(tarefa2, 100, tarefa2.getPorcentagem(), usuarioDao.findById(1)));
+		tarefa2 = tarefaDao.findById(2);
+		
 		System.out.println("Tarefa: "+ tarefa2.getDescricao() + " - " + tarefa2.getPorcentagem() + "% - "+ tarefa2.getDataFechamento());
 		
 		
