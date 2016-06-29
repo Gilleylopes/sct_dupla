@@ -19,7 +19,7 @@ public class TarefaLogDao {
 			Statement stm = conexao.createStatement();
 			String sqlCreate = BancoUtil.TabelaTarefaLog();
 
-			stm.executeQuery(sqlCreate);
+			stm.executeUpdate(sqlCreate);
 
 		} catch (SQLException e) {
 			System.out.println("Erro de SQL: " + e);
@@ -41,10 +41,11 @@ public class TarefaLogDao {
 
 	public void inserir(TarefaLog tarefaLog) throws Exception {
 		Connection connection = Conexao.getConexao();
+		connection.setAutoCommit(false);
 		try{
 		PreparedStatement pst = connection
 				.prepareStatement("INSERT INTO sct.tarefa_log " + "(id_tarefa, nova_porcentagem, antiga_porcentagem, id_usuario_responsavel) "
-						+ " VALUES (?,?,?,?,?) ");
+						+ " VALUES (?,?,?,?) ");
 		pst.setInt(1, tarefaLog.getTarefa().getId());
 		pst.setInt(2, tarefaLog.getNovaPorcentagem());
 		pst.setInt(3, tarefaLog.getAntigaPorcentagem());
@@ -61,6 +62,8 @@ public class TarefaLogDao {
 		pst.close();
 		}catch(Exception e){
 			connection.rollback();
+		}finally{
+			connection.setAutoCommit(true);
 		}
 	}
 

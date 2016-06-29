@@ -31,8 +31,9 @@ public class Tarefa {
 	 * @param usuarioAbertura
 	 * @param usuarioFechamento
 	 */
-	public Tarefa (String descricao, Date dataAbertura, Date dataFechamento,
+	public Tarefa (String titulo, String descricao, Date dataAbertura, Date dataFechamento,
 			Integer porcentagem, Projeto projeto, Usuario usuarioAbertura, Usuario usuarioFechamento){
+		this.titulo = titulo;
 		this.descricao = descricao;
 		this.dataAbertura = dataAbertura;
 		this.dataFechamento = dataFechamento;

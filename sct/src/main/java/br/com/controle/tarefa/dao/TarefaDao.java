@@ -20,7 +20,7 @@ public class TarefaDao {
 			Statement stm = conexao.createStatement();
 			String sqlCreate = BancoUtil.TabelaTarefa();
 
-			stm.executeQuery(sqlCreate);
+			stm.executeUpdate(sqlCreate);
 
 		} catch (SQLException e) {
 			System.out.println("Erro de SQL: " + e);
@@ -48,11 +48,11 @@ public class TarefaDao {
 		pst.setString(1, tarefa.getTitulo());
 		pst.setString(2, tarefa.getDescricao());
 		pst.setDate(3, new Date(tarefa.getDataAbertura().getTime()));
-		pst.setDate(4, new Date(tarefa.getDataFechamento().getTime()));
+		pst.setDate(4, tarefa.getDataFechamento() != null ? new Date(tarefa.getDataFechamento().getTime()) : null);
 		pst.setInt(5, tarefa.getPorcentagem());
 		pst.setInt(6, tarefa.getProjeto().getId());
 		pst.setInt(7, tarefa.getUsuarioAbertura().getId());
-		pst.setInt(8, tarefa.getUsuarioFechamento().getId());
+		pst.setInt(8, tarefa.getUsuarioFechamento() != null ? tarefa.getUsuarioFechamento().getId() : 0);
 		pst.executeUpdate();
 		pst.close();
 	}
@@ -120,7 +120,7 @@ public class TarefaDao {
 		tarefa.setPorcentagem(rs.getInt("porcentagem"));
 		tarefa.setDataAbertura(rs.getDate("data_abertura"));
 		tarefa.setDataFechamento(rs.getDate("data_fechamento"));
-		tarefa.setUsuarioAbertura(usuarioDao.findById( rs.getInt("id_usuario_bertura") ));
+		tarefa.setUsuarioAbertura(usuarioDao.findById( rs.getInt("id_usuario_abertura") ));
 		tarefa.setUsuarioFechamento(usuarioDao.findById( rs.getInt("id_usuario_fechamento") ));
 		return tarefa;
 	}

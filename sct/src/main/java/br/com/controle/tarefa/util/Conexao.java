@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Conexao {
 	
 	private static Connection conexao;
-	private static final String DRIVER = "org.hsqldb.jdbc.JDBCDriver";
+	private static final String DRIVER = "org.postgresql.Driver";
     private static String nomeBanco = "sct";
     
     /**

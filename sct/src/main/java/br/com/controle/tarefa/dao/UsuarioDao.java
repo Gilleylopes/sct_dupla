@@ -19,7 +19,7 @@ public class UsuarioDao {
 			Statement stm = conexao.createStatement();
 			String sqlCreate = BancoUtil.TabelaUsuario();
 
-			stm.executeQuery(sqlCreate);
+			stm.executeUpdate(sqlCreate);
 
 		} catch (SQLException e) {
 			System.out.println("Erro de SQL: " + e);
@@ -41,7 +41,7 @@ public class UsuarioDao {
 
 	public void inserir(Usuario usuario) throws Exception {
 		PreparedStatement pst = Conexao.getConexao()
-				.prepareStatement("INSERT INTO sct.usuario " + "(nome, email, senha " + " VALUES (?,?,?) ");
+				.prepareStatement("INSERT INTO sct.usuario " + "(nome, email, senha) " + " VALUES (?,?,?) ");
 		pst.setString(1, usuario.getNome());
 		pst.setString(2, usuario.getEmail());
 		pst.setString(3, usuario.getSenha());
@@ -98,7 +98,7 @@ public class UsuarioDao {
 
 	private Usuario populaUsuario(ResultSet rs) throws SQLException {
 		Usuario usuario = new Usuario();
-		usuario.setId(rs.getInt("id_tarefa"));
+		usuario.setId(rs.getInt("id_usuario"));
 		usuario.setNome(rs.getString("nome"));
 		usuario.setEmail(rs.getString("email"));
 		usuario.setSenha(rs.getString("senha"));

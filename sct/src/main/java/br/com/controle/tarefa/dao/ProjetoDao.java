@@ -12,11 +12,6 @@ import br.com.controle.tarefa.dominio.Projeto;
 import br.com.controle.tarefa.util.BancoUtil;
 import br.com.controle.tarefa.util.Conexao;
 
-/**
- * Comment
- * @author home
- *
- */
 public class ProjetoDao {
 
 	public ProjetoDao() throws Exception {
@@ -25,7 +20,7 @@ public class ProjetoDao {
 			Statement stm = conexao.createStatement();
 			String sqlCreate = BancoUtil.TabelaProjeto();
 
-			stm.executeQuery(sqlCreate);
+			stm.executeUpdate(sqlCreate);
 
 		} catch (SQLException e) {
 			System.out.println("Erro de SQL: " + e);
@@ -47,7 +42,7 @@ public class ProjetoDao {
 
 	public void inserir(Projeto projeto) throws Exception {
 		PreparedStatement pst = Conexao.getConexao()
-				.prepareStatement("INSERT INTO sct.projeto " + "(descricao, data_inicio, data_fim " + " VALUES (?,?,?) ");
+				.prepareStatement("INSERT INTO sct.projeto " + "(descricao, data_inicio, data_fim) " + " VALUES (?,?,?) ");
 		pst.setString(1, projeto.getDescricao());
 		pst.setDate(2, new Date( projeto.getDataInicio().getTime() ));
 		pst.setDate(3, new Date( projeto.getDataFim().getTime() ));
@@ -104,10 +99,10 @@ public class ProjetoDao {
 
 	private Projeto populaProjeto(ResultSet rs) throws SQLException {
 		Projeto projeto = new Projeto();
-		projeto.setId(rs.getInt("id_tarefa"));
+		projeto.setId(rs.getInt("id_projeto"));
 		projeto.setDescricao(rs.getString("descricao"));
-		projeto.setDataInicio(rs.getDate("email"));
-		projeto.setDataFim(rs.getDate("senha"));
+		projeto.setDataInicio(rs.getDate("data_inicio"));
+		projeto.setDataFim(rs.getDate("data_fim"));
 		return projeto;
 	}
 
