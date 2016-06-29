@@ -83,8 +83,7 @@ public class BancoUtil {
     			+ "id_tarefa integer, "
     			+ "nova_porcentagem integer, "
     			+ "antiga_porcentagem integer, "
-    			+ "id_usuario_abertura integer, "
-    			+ "id_usuario_fechamento integer, "
+    			+ "id_usuario_responsavel integer, "
     			+ "CONSTRAINT pk_Tarefa PRIMARY KEY (id_tarefa_log),"
     			+ "FOREIGN KEY (id_tarefa) REFERENCES sct.tarefa (id_tarefa));\n";
     }

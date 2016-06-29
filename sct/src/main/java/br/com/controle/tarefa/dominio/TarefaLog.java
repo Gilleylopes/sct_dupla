@@ -1,14 +1,35 @@
 package br.com.controle.tarefa.dominio;
 
+
 public class TarefaLog {
 	
 	private Integer id;
 	private Tarefa tarefa;
 	private Integer novaPorcentagem;
 	private Integer antigaPorcentagem;
-	private Usuario usuarioAbertura;
-	private Usuario usuarioFechamento;
+	private Usuario usuarioResponsavel;
 	
+	
+	public TarefaLog(){
+		
+	}
+	
+	/**
+	 * Construtor do objeto
+	 * @param tarefa
+	 * @param novaPorcentagem
+	 * @param antigaPorcentagem
+	 * @param usuarioResponsavel
+	 */
+	public TarefaLog (Tarefa tarefa, Integer novaPorcentagem, Integer antigaPorcentagem, Usuario usuarioResponsavel){
+		this.tarefa = tarefa;
+		this.novaPorcentagem = novaPorcentagem;
+		this.antigaPorcentagem = antigaPorcentagem;
+		this.usuarioResponsavel = usuarioResponsavel;
+	}
+	
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -22,18 +43,11 @@ public class TarefaLog {
 		this.tarefa = tarefa;
 	}
 
-	public Usuario getUsuarioAbertura() {
-		return usuarioAbertura;
+	public Usuario getUsuarioResponsavel() {
+		return usuarioResponsavel;
 	}
-	public void setUsuarioAbertura(Usuario usuarioAbertura) {
-		this.usuarioAbertura = usuarioAbertura;
-	}
-	
-	public Usuario getUsuarioFechamento() {
-		return usuarioFechamento;
-	}
-	public void setUsuarioFechamento(Usuario usuarioFechamento) {
-		this.usuarioFechamento = usuarioFechamento;
+	public void setUsuarioResponsavel(Usuario usuarioResponsavel) {
+		this.usuarioResponsavel = usuarioResponsavel;
 	}
 	public Integer getNovaPorcentagem() {
 		return novaPorcentagem;

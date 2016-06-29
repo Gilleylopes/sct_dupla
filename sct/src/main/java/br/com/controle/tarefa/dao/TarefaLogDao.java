@@ -41,28 +41,34 @@ public class TarefaLogDao {
 	}
 
 	public void inserir(TarefaLog tarefaLog) throws Exception {
-		PreparedStatement pst = Conexao.getConexao()
-				.prepareStatement("INSERT INTO sct.tarefa_log " + "(id_tarefa, nova_porcentagem, antiga_porcentagem, id_usuario_abertura, "
-						+ " id_usuario_fechamento) "
+		Connection connection = Conexao.getConexao();
+		try{
+		PreparedStatement pst = connection
+				.prepareStatement("INSERT INTO sct.tarefa_log " + "(id_tarefa, nova_porcentagem, antiga_porcentagem, id_usuario_responsavel) "
 						+ " VALUES (?,?,?,?,?) ");
 		pst.setInt(1, tarefaLog.getTarefa().getId());
 		pst.setInt(2, tarefaLog.getNovaPorcentagem());
 		pst.setInt(3, tarefaLog.getAntigaPorcentagem());
-		pst.setInt(4, tarefaLog.getUsuarioAbertura().getId());
-		pst.setInt(5, tarefaLog.getUsuarioFechamento().getId());
+		pst.setInt(4, tarefaLog.getUsuarioResponsavel().getId());
 		pst.executeUpdate();
+		
+		atualizarPorcentagem(tarefaLog, connection);
+		
+		connection.commit();
 		pst.close();
+		}catch(Exception e){
+			connection.rollback();
+		}
 	}
 
 	public void alterar(TarefaLog tarefaLog) throws Exception {
 		PreparedStatement pst = Conexao.getConexao().prepareStatement(
-				"UPDATE sct.tarefa_log SET " + "nova_porcentagem = ?, antiga_porcentagem = ?, id_usuario_abertura = ?, id_usuario_fechamento = ? " +
+				"UPDATE sct.tarefa_log SET " + "nova_porcentagem = ?, antiga_porcentagem = ?, id_usuario_responsavel = ?" +
 				" WHERE id_tarefa_log = ?");
 		pst.setInt(1, tarefaLog.getNovaPorcentagem());
 		pst.setInt(2, tarefaLog.getAntigaPorcentagem());
-		pst.setInt(3, tarefaLog.getUsuarioAbertura().getId());
-		pst.setInt(4, tarefaLog.getUsuarioFechamento().getId());
-		pst.setInt(5, tarefaLog.getId());
+		pst.setInt(3, tarefaLog.getUsuarioResponsavel().getId());
+		pst.setInt(4, tarefaLog.getId());
 		pst.executeUpdate();
 		pst.close();
 	}
@@ -111,23 +117,26 @@ public class TarefaLogDao {
 		tarefaLog.setTarefa(tarefaDao.findById( rs.getInt("id_tarefa") ));
 		tarefaLog.setNovaPorcentagem(rs.getInt("nova_porcentagem"));
 		tarefaLog.setAntigaPorcentagem(rs.getInt("data_abertura"));
-		tarefaLog.setUsuarioAbertura(usuarioDao.findById( rs.getInt("id_usuario_bertura") ));
-		tarefaLog.setUsuarioFechamento(usuarioDao.findById( rs.getInt("id_usuario_fechamento") ));
+		tarefaLog.setUsuarioResponsavel(usuarioDao.findById( rs.getInt("id_usuario_responsavel") ));
 		return tarefaLog;
 
 	}
 	
-	public void AtualizarPorcentagem (TarefaLog tarefaLog) throws SQLException{
-		Connection connection = Conexao.getConexao();
-		try{	
-			PreparedStatement pst = connection.prepareStatement("UPDATE sct.tarefa_log SET " + " nova_porcentagem = ? WHERE id_tarefa_log = ?");
-			pst.setInt(1, tarefaLog.getNovaPorcentagem());
-			pst.setInt(2, tarefaLog.getId());
-			pst.executeUpdate();
-            connection.commit();;
-            connection.close();
-        } catch (Exception e) {
-            connection.rollback();
-        }
+	public void atualizarPorcentagem (TarefaLog tarefaLog, Connection connection) throws SQLException{		
+		PreparedStatement pst = Conexao.getConexao().prepareStatement(
+				"UPDATE sct.tarefa_log SET " + " nova_porcentagem = ? WHERE id_tarefa_log = ?");
+		pst.setInt(1, tarefaLog.getNovaPorcentagem());
+		pst.setInt(2, tarefaLog.getId());
+		pst.executeUpdate();
+		pst.close();
+	}
+	
+	public void atualizarUsuario (TarefaLog tarefaLog, Connection connection) throws SQLException{	
+		PreparedStatement pst = Conexao.getConexao().prepareStatement(
+				"UPDATE sct.tarefa_log SET " + " id_usuario_responsavel = ? WHERE id_tarefa_log = ?");
+		pst.setInt(1, tarefaLog.getUsuarioResponsavel().getId());
+		pst.setInt(2, tarefaLog.getId());
+		pst.executeUpdate();
+		pst.close();
 	}
 }

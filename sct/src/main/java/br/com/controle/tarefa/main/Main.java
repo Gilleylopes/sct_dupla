@@ -4,9 +4,11 @@ import java.util.Date;
 
 import br.com.controle.tarefa.dao.ProjetoDao;
 import br.com.controle.tarefa.dao.TarefaDao;
+import br.com.controle.tarefa.dao.TarefaLogDao;
 import br.com.controle.tarefa.dao.UsuarioDao;
 import br.com.controle.tarefa.dominio.Projeto;
 import br.com.controle.tarefa.dominio.Tarefa;
+import br.com.controle.tarefa.dominio.TarefaLog;
 import br.com.controle.tarefa.dominio.Usuario;
 
 public class Main {
@@ -16,6 +18,7 @@ public class Main {
 		ProjetoDao projetoDao = new ProjetoDao();
 		UsuarioDao usuarioDao = new UsuarioDao();
 		TarefaDao tarefaDao = new TarefaDao();
+		TarefaLogDao tarefaLogDao = new TarefaLogDao();
 		
 		projetoDao.inserir(new Projeto("Projeto 1", new Date("22/01/2016"), new Date("05/05/2016") ));
 		projetoDao.inserir(new Projeto("Projeto 2", new Date("20/07/2016"), new Date("12/12/2016") ));
@@ -28,6 +31,10 @@ public class Main {
 		
 //		TODO LANÇAR LOG TAREFA
 		Tarefa tarefa1 = tarefaDao.findById(1);
+		
+		tarefaLogDao.inserir(new TarefaLog(tarefa1, 30, 0, usuarioDao.findById(2)));
+		tarefaLogDao.inserir(new TarefaLog(tarefa1, 30, 100, usuarioDao.findById(2)));
+		
 		System.out.println("Tarefa: "+ tarefa1.getDescricao() + " - " + tarefa1.getPorcentagem() + "% - "+ tarefa1.getDataFechamento());
 		
 //		TODO LANÇAR LOG TAREFA
